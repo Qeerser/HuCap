@@ -1,0 +1,78 @@
+# Node.js / Next.js
+node_modules/
+.next/
+out/
+.env.local
+.env.*.local
+.env.development.local
+.env.production.local
+.env.test.local
+.vscode/
+yarn.lock
+npm-debug.log*
+pnpm-debug.log*
+.eslintcache
+.DS_Store
+package-lock.json
+coverage/
+
+# Log files
+logs
+*.log
+yarn-error.log
+*.log.*
+*.tsbuildinfo
+
+# Next.js build outputs
+build/
+.cache/
+.vercel/
+dist/
+
+# Go
+*.exe
+*.test
+*.out
+*.log
+*.mod
+*.sum
+vendor/
+bin/
+pkg/
+*.db
+*.sqlite
+*.sqlite3
+
+# Compiled files
+*.o
+*.so
+*.a
+
+# IDE settings
+.idea/
+*.iml
+
+# Temporary files
+*.swp
+*.swo
+*.tmp
+*.bak
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+*.pid
+
+# Environment variables
+.env
+.env.*
+
+# Go workspace
+workspace.*
+
+# Docker
+docker-compose.override.yml
