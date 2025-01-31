@@ -5,6 +5,8 @@ import (
 	"HuCap/base/repositories"
 	"HuCap/base/schemas"
 	"HuCap/utils"
+
+	"github.com/google/uuid"
 )
 
 type userService struct {
@@ -28,4 +30,13 @@ func (s *userService) CreateUser(u *schemas.User) error{
 	}
 
 	return s.userRepo.CreateUser(dnp)
+}
+
+func (s *userService) LoginUser(user *schemas.User) bool {
+	dsn := s.userRepo.LoginUser(user.Email)
+	user.ID , _ = uuid.Parse(dsn.ID)
+	user.FullName = dsn.FullName
+	user.Username = dsn.Username
+	user.Password = ""
+	return utils.CheckPasswordHash(user.Password ,dsn.Password)
 }

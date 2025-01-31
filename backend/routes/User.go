@@ -6,6 +6,7 @@ import (
 	"HuCap/base/services"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"gorm.io/gorm"
 )
 
@@ -16,11 +17,18 @@ func SetupRoute(app *fiber.App, db *gorm.DB) {
 	service := services.NewService(repository)
 	handler := handlers.NewHandler(service)
 
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "http://localhost:3000", // Allow requests from Next.js frontend
+		AllowMethods: "GET,POST,PUT,DELETE,OPTIONS",
+		AllowHeaders: "Content-Type, Authorization",
+	}))
+
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Hello, World!")
 	})
 	
 	api := app.Group("/api")
 
-	api.Post("user" , handler.User().CreateUser)
+	api.Post("register" , handler.User().CreateUser)
+	api.Post("login" , handler.User().LoginUser)
 }

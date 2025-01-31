@@ -28,3 +28,22 @@ func (h *userHandler) CreateUser(c *fiber.Ctx) error {
 	}
 	return c.SendStatus(200)
 }
+
+func (h *userHandler) LoginUser(c *fiber.Ctx) error {
+		var user schemas.User
+
+		if err := c.BodyParser(&user); err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
+		}
+
+		// Check if user exists
+		if h.userService.LoginUser(&user) {
+			return c.Status(fiber.StatusOK).JSON(fiber.Map{
+				"message": "Login successful",
+				"user":    user,
+				"token":   "mock-jwt-token-12345", // Simulated JWT token
+			})
+		}
+
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Invalid email or password"})
+}
